@@ -1,20 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>personal blog</title>
-  <link type="text/css" rel="stylesheet" href="css/index.css" />
-  <script src="js/index.js"></script>
-</head>
-<body>
-  <header class="header">
-      <div class="nav">
-           <p>
-             请点击你发现会有惊喜
-           </p>
-      </div>
-  </header>
-</body>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>时钟:js</title>
+		<style>
+			*{
+				margin:0;
+				padding:0;
+			}
+			.clock{
+				width:200px;
+				height:200px;
+				margin:50px auto;
+				background: url(images/clockBg.png) no-repeat;
+				background-size:100%;
+				position:relative;
+			}
+			.clock div{
+				width:100%;
+				height:100%;
+				position:absolute;
+				top:0;
+				left:0;
+			}
+			.h{
+				background: url(images/hourHand.png) no-repeat center center;
+			}
+			.m{
+				background: url(images/minuteHand.png) no-repeat center center;
+			}
+			.s{
+				background:url(images/secondHand.png) no-repeat center center;
+			}
+		</style>
+	</head>
+	<body style="background: #000;">
+		<div class="clock">
+			<div class="h" id="hour"></div>
+			<div class="m" id="minute"></div>
+			<div class="s" id="second"></div>
+		</div>
+		<script>
+			window.onload=function(){
+				var hour=document.getElementById("hour");//小时
+				var minute=document.getElementById("minute");//分钟
+				var second=document.getElementById("second");//秒
+				timer();
+				//定时器
+				var s=0,m=0,h=0,ms=0;
+				setInterval(timer,1000);
+				function timer(){
+					var date =new Date();//最新时间
+					ms=date.getMilliseconds();//现在的毫秒数
+					s=date.getSeconds()+ms/1000; //等到秒数
+					m=date.getMinutes() + ms/60;//等到的分数
+					h=date.getHours()%12 + m/60;//等到的小时
+		          //旋转角度
+		          //秒针  一个圈360度  一分60秒  每秒360/60=6
+		            second.style.transform="rotate("+s*6+"deg)";
+		            second.style.WebkitTransform="rotate("+s*6+"deg)";
+		            second.style.MozTransform="rotate("+s*6+"deg)";
+		            
+		          //分钟一个圈360度  一分60秒  每秒360/60=6
+		            minute.style.transform="rotate("+m*6+"deg)";
+		            minute.style.WebkitTransform="rotate("+m*6+"deg)";
+		            minute.style.MozTransform="rotate("+m*6+"deg)";
+		            
+		            
+		          //小时 一圈360 小时12  每小时360/12=30
+		          	hour.style.transform="rotate("+h*30+"deg)";
+		            hour.style.WebkitTransform="rotate("+h*30+"deg)";
+		            hour.style.MozTransform="rotate("+h*30+"deg)";
+				}
+			
+			}
+		</script>
+	</body>
 </html>
